@@ -6,7 +6,12 @@ import (
 
 type User struct {
 	gorm.Model
-	Username string `gorm:"default:null;"`
-	Name     string `gorm:"default:null;"`
-	RollNo   string `gorm:"not null;unique"`
+	Firstname    string `gorm:"default:null;"`
+	Lastname     string `gorm:"default:null;"`
+	Email        string `gorm:"not null;unique"`
+	Contactno    string `gorm:"default:null;"`
+	Passwordhash string `gorm:"not null;"`
+	IsVerified   bool   `gorm:"default:false;"`
+	Fcm_token    string `gorm:"default:null;"`
+	IsSeller     bool   `gorm:"default:false;"`
 }

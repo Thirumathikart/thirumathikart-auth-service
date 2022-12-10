@@ -1,7 +1,7 @@
 package routes
 
 import (
-	controllers "github.com/thirumathikart/thirumathikart-auth-service/controllers/user"
+	controllers "github.com/thirumathikart/thirumathikart-auth-service/controllers"
 
 	"github.com/labstack/echo/v4"
 )

@@ -91,7 +91,7 @@ func AddAddress(c echo.Context) error {
 	//Save Address
 	db.Create(&address)
 
-	return utils.SendResponse(c, http.StatusBadRequest, AddAddressResponse{Message: "success"})
+	return utils.SendResponse(c, http.StatusOK, AddAddressResponse{Message: "success"})
 }
 
 
@@ -128,7 +128,7 @@ func UpdateAddress(c echo.Context) error {
 	address.Longitude=req.Longitude
 	db.Save(&address)
 
-	return utils.SendResponse(c, http.StatusBadRequest, UpdateAddressResponse{Message: "success"})
+	return utils.SendResponse(c, http.StatusOK, UpdateAddressResponse{Message: "success"})
 }
 
 func FetchAddress(c echo.Context) error {
@@ -162,7 +162,7 @@ func FetchAddress(c echo.Context) error {
 		})
 	}
 
-	return utils.SendResponse(c,http.StatusInternalServerError,FetchAddressResponse{Address: response,Message:"success"})
+	return utils.SendResponse(c,http.StatusOK,FetchAddressResponse{Address: response,Message:"success"})
 
 }
 

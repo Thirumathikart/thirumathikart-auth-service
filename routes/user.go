@@ -14,4 +14,6 @@ func UserRoutes(e *echo.Group) {
 	user.POST("/addAddress", controllers.AddAddress)
 	user.POST("/updateAddress", controllers.UpdateAddress)
 	user.POST("/address", controllers.FetchAddress)
+	user.POST("/fcmRegister", controllers.FcmRegistration)
+	user.POST("/fcmToken", controllers.FetchFCMToken)
 }

@@ -6,12 +6,14 @@ import (
 
 type Address struct {
 	gorm.Model
-	UserID   uint `gorm:"not null;"`
-	User     User
-	Line1    string `gorm:"default:null;"`
-	Line2    string `gorm:"default:null;"`
-	Landmark string `gorm:"default:null;"`
-	District string `gorm:"default:null;"`
-	State    string `gorm:"default:null;"`
-	Pincode  string `gorm:"default:null;"`
+	UserID   	uint 		`gorm:"not null;"`
+	User     	User
+	Line1    	string 		`gorm:"not null;"`
+	Line2    	string 		`gorm:"default:null;"`
+	Landmark 	string 		`gorm:"default:null;"`
+	District 	string 		`gorm:"not null;"`
+	State    	string 		`gorm:"not null;"`
+	Pincode  	string 		`gorm:"not null;"`
+	Latitude 	float64 	`gorm:"not null;"`
+	Longitude 	float64 	`gorm:"not null;"`
 }

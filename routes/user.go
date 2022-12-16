@@ -11,4 +11,7 @@ func UserRoutes(e *echo.Group) {
 
 	user.POST("/signup", controllers.SignupUser)
 	user.POST("/loginCustomer", controllers.LoginCustomer)
+	user.POST("/addAddress", controllers.AddAddress)
+	user.POST("/updateAddress", controllers.UpdateAddress)
+	user.POST("/address", controllers.FetchAddress)
 }

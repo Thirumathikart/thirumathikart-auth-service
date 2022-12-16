@@ -53,7 +53,7 @@ func LoginCustomer(c echo.Context) error {
 		"email":  user.Email,
 		"contact" : user.Contactno,
 	});err!=nil{
-		return utils.SendResponse(c,http.StatusInternalServerError,err.Error())
+		return utils.SendResponse(c,http.StatusInternalServerError,"Internal Server Error")
 	} else{
 		return utils.SendResponse(c, http.StatusOK, CustomerLoginResponse{Token: token,Message: "User Authenticated Successfully"})
 	}

@@ -13,13 +13,14 @@ services:
         - .:/app  
 
     authdb:
+      privileged: true
       container_name: "thirumathikart_authdb"
       image: postgres
       restart: always
       env_file:
         - .env
       volumes:
-        - ./pg_db:/data/postgres
+        - ./pg_db:/data/postgres:rw
 
     authadminer:
       container_name: "adminer_authdb"

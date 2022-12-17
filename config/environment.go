@@ -16,6 +16,7 @@ var DbName string
 var DbPort string
 var ServerPort string
 var JwtSecret string
+var MessagingService string
 
 func InitConfig() {
 	err := godotenv.Load()
@@ -30,4 +31,5 @@ func InitConfig() {
 	DbPort = os.Getenv("POSTGRES_PORT")
 	ServerPort = os.Getenv("SERVER_PORT")
 	JwtSecret = os.Getenv("JWT_SECRET")
+	MessagingService = os.Getenv("MESSAGING_SERVICE")
 }

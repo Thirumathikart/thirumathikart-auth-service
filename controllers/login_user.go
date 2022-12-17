@@ -15,7 +15,6 @@ import (
 type CustomerLoginRequest struct {
 	Email     string `json:"email"`
 	Password  string `json:"password"`
-	Token     string `json:"user_token"`
 }
 
 type CustomerLoginResponse struct {

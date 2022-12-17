@@ -28,8 +28,8 @@ services:
       restart: always
       ports:
         - ${ADMINER_PORT}:8080
-        
-    networks:
-      default:
-          external:
-            name: thirumathikart_network
+
+networks:
+  default:
+      external:
+        name: thirumathikart_network

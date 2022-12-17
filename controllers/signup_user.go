@@ -20,11 +20,15 @@ type SignupRequest struct {
 	IsSeller  bool   `json:"is_seller"`
 }
 
+type SignUpResponse struct {
+	Message   string `json:"message"`
+}
+
 func SignupUser(c echo.Context) error {
 	var req SignupRequest
 
 	if err := c.Bind(&req); err != nil {
-		return utils.SendResponse(c, http.StatusBadRequest, "Invalid request")
+		return utils.SendResponse(c, http.StatusBadRequest, SignUpResponse{Message :"Invalid request"})
 	}
 
 	// Generate Password Hash
@@ -43,8 +47,8 @@ func SignupUser(c echo.Context) error {
 	db := config.GetDB()
 
 	if err := db.Create(&newUser).Error; err != nil {
-		return utils.SendResponse(c, http.StatusBadRequest, "User already exists")
+		return utils.SendResponse(c, http.StatusBadRequest, SignUpResponse{Message :"User already exists"})
 	}
 
-	return utils.SendResponse(c, http.StatusOK, "User created successfully")
+	return utils.SendResponse(c, http.StatusOK, SignUpResponse{Message :"User created successfully"})
 }

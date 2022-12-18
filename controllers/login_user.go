@@ -13,13 +13,13 @@ import (
 )
 
 type CustomerLoginRequest struct {
-	Email     string `json:"email"`
-	Password  string `json:"password"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type CustomerLoginResponse struct {
-	Token 	  string `json:"token"`
-	Message   string `json:"message"`
+	Token   string `json:"token"`
+	Message string `json:"message"`
 }
 
 func LoginCustomer(c echo.Context) error {
@@ -33,7 +33,7 @@ func LoginCustomer(c echo.Context) error {
 
 	//Fetch User
 	var user models.User
-	if err := db.First(&user,"email = ?",req.Email).Error; err != nil {
+	if err := db.First(&user, "email = ?", req.Email).Error; err != nil {
 		return utils.SendResponse(c, http.StatusUnauthorized, CustomerLoginResponse{Message: "Invalid Credentials"})
 	}
 
@@ -43,17 +43,18 @@ func LoginCustomer(c echo.Context) error {
 	passwordHash := hex.EncodeToString(hasher.Sum(nil))
 
 	//Password Check
-	if user.Passwordhash!=passwordHash {
-		return utils.SendResponse(c,http.StatusUnauthorized,CustomerLoginResponse{Message: "Invalid Credentials"})
+	if user.Passwordhash != passwordHash {
+		return utils.SendResponse(c, http.StatusUnauthorized, CustomerLoginResponse{Message: "Invalid Credentials"})
 	}
 
-	//Generate jwt
-	if token, err :=  utils.CreateToken(jwt.MapClaims{
-		"email":  user.Email,
-		"contact" : user.Contactno,
-	});err!=nil{
-		return utils.SendResponse(c,http.StatusInternalServerError,"Internal Server Error")
-	} else{
-		return utils.SendResponse(c, http.StatusOK, CustomerLoginResponse{Token: token,Message: "User Authenticated Successfully"})
+	var token string
+	var err error
+	if token, err = utils.CreateToken(jwt.MapClaims{
+		"email":   user.Email,
+		"contact": user.Contactno,
+	}); err != nil {
+		return utils.SendResponse(c, http.StatusInternalServerError, "Internal Server Error")
 	}
+	return utils.SendResponse(c, http.StatusOK, CustomerLoginResponse{Token: token, Message: "User Authenticated Successfully"})
+
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/fatih/color"
+	"github.com/thirumathikart/thirumathikart-auth-service/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -32,4 +33,18 @@ func ConnectDB() {
 // GetDB returns the database
 func GetDB() *gorm.DB {
 	return db
+}
+
+func MigrateDB() {
+	db := GetDB()
+
+	for _, model := range []interface{}{
+		models.User{},
+		models.Address{},
+		models.Seller{},
+	} {
+		if err := db.AutoMigrate(&model); err != nil {
+			panic(err)
+		}
+	}
 }

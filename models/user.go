@@ -12,6 +12,6 @@ type User struct {
 	Contactno    string `gorm:"default:null;"`
 	Passwordhash string `gorm:"not null;"`
 	IsVerified   bool   `gorm:"default:false;"`
-	Fcm_token    string `gorm:"default:null;"`
+	FcmToken     string `gorm:"default:null;"`
 	IsSeller     bool   `gorm:"default:false;"`
 }

@@ -43,7 +43,7 @@ func FcmRegistration(c echo.Context) error {
 		return utils.SendResponse(c, http.StatusBadRequest, FCMRegistrationResponse{Message: "Invalid Request"})
 	}
 
-	user.Fcm_token = req.FCMToken
+	user.FcmToken = req.FCMToken
 	db.Save(&user)
 	return utils.SendResponse(c, http.StatusOK, FCMRegistrationResponse{Message: "success"})
 }
@@ -63,9 +63,9 @@ func FetchFCMToken(c echo.Context) error {
 		return utils.SendResponse(c, http.StatusBadRequest, FCMTokenResponse{Message: "Invalid Request"})
 	}
 
-	if user.Fcm_token == "" {
+	if user.FcmToken == "" {
 		return utils.SendResponse(c, http.StatusBadRequest, FCMTokenResponse{Message: "Invalid Request"})
 	}
 
-	return utils.SendResponse(c, http.StatusOK, FCMTokenResponse{FCMToken: user.Fcm_token, Message: "success"})
+	return utils.SendResponse(c, http.StatusOK, FCMTokenResponse{FCMToken: user.FcmToken, Message: "success"})
 }

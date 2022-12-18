@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
@@ -74,10 +75,12 @@ func GetCurrentUserFromToken(userToken string, db *gorm.DB) (models.User, error)
 		return user, err
 	}
 	if claims, ok := token.Claims.(*CustomClaims); ok && token.Valid {
-		var user models.User
-		err = db.First(&user, "email = ?", claims.Email).Error
+		claimsEmail := claims.Email
+		log.Println("USER_EMAIL", claimsEmail)
+		err = db.First(&user, "email = ?", claimsEmail).Error
+		log.Println(user)
 		if err != nil {
-			return user, fmt.Errorf("invalid token")
+			return user, err
 		}
 	}
 	return user, nil

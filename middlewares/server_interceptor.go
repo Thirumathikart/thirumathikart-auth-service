@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/thirumathikart/thirumathikart-auth-service/utils"
+	"github.com/thirumathikart/thirumathikart-auth-service/config"
 	"google.golang.org/grpc"
 )
 
@@ -22,7 +22,7 @@ func serverInterceptor(ctx context.Context,
 	var err error
 	h, err = handler(ctx, req)
 
-	utils.GrpcLog.Infof("Request - Method:%s\tDuration:%s\tError:%v\n",
+	config.GrpcLog.Infof("Request - Method:%s\tDuration:%s\tError:%v\n",
 		info.FullMethod,
 		time.Since(start),
 		err)

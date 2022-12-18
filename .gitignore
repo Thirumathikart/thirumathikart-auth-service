@@ -5,3 +5,4 @@ mysql_db
 docker-data-mysql
 .vscode
 pg_db
+exec.sh

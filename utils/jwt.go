@@ -1,10 +1,7 @@
 package utils
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 
 	"github.com/golang-jwt/jwt"
@@ -30,19 +27,20 @@ func CreateToken(claims jwt.Claims) (string, error) {
 }
 
 func GetCurrentUser(c echo.Context) (models.User, error) {
-	bodyBytes, err := ioutil.ReadAll(c.Request().Body)
-	if err != nil {
-		return models.User{}, err
-	}
-	jsonBody := make(map[string]interface{})
-	errM := json.NewDecoder(ioutil.NopCloser(bytes.NewBuffer(bodyBytes))).Decode(&jsonBody)
-	c.Request().Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+	// bodyBytes, err := ioutil.ReadAll(c.Request().Body)
+	// if err != nil {
+	// 	return models.User{}, err
+	// }
+	// jsonBody := make(map[string]interface{})
+	// errM := json.NewDecoder(ioutil.NopCloser(bytes.NewBuffer(bodyBytes))).Decode(&jsonBody)
+	// c.Request().Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
 
-	if errM != nil {
-		return models.User{}, fmt.Errorf(errM.Error())
-	}
+	// if errM != nil {
+	// 	return models.User{}, fmt.Errorf(errM.Error())
+	// }
+	jwtToken:= c.Request().Header.Get("Authorization")
 
-	token, err := jwt.ParseWithClaims(fmt.Sprint(jsonBody["user_token"]), &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(fmt.Sprint(jwtToken), &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}

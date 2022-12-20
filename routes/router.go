@@ -32,9 +32,9 @@ func Init() {
 	userE.POST("/loginCustomer", controllers.LoginCustomer)
 	userE.POST("/addAddress", controllers.AddAddress)
 	userE.POST("/updateAddress", controllers.UpdateAddress)
-	userE.POST("/address", controllers.FetchAddress)
+	userE.GET("/address", controllers.FetchAddress)
 	userE.POST("/fcmRegister", controllers.FcmRegistration)
-	userE.POST("/fcmToken", controllers.FetchFCMToken)
+	userE.GET("/fcmToken", controllers.FetchFCMToken)
 	go func() {
 		e.Logger.Fatal(e.Start(":" + httpPort))
 	}()

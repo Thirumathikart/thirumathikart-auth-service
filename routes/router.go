@@ -42,6 +42,7 @@ func Init() {
 	grpcPort := config.RPCPort
 	grpcServer := grpc.NewServer(middlewares.WithServerUnaryInterceptor())
 	user.RegisterUserServiceServer(grpcServer, &rpcs.UserRPCServer{})
+	user.RegisterUserServiceServer(grpcServer, &rpcs.AuthRPCServer{})
 	go func() {
 		lis, err := net.Listen("tcp", fmt.Sprintf(":%s", grpcPort))
 		if err != nil {

@@ -18,6 +18,7 @@ type SignupRequest struct {
 	Email     string `json:"email"`
 	Password  string `json:"password"`
 	IsSeller  bool   `json:"is_seller"`
+	Contactno string `json:"contact_no"`
 }
 
 type SignUpResponse struct {
@@ -42,6 +43,7 @@ func SignupUser(c echo.Context) error {
 		Email:        req.Email,
 		IsSeller:     req.IsSeller,
 		Passwordhash: passwordHash,
+		Contactno:    req.Contactno,
 	}
 
 	db := config.GetDB()

@@ -44,7 +44,12 @@ func (UserRPCServer) UserRPC(ctx context.Context, request *user.UserRequest) (*u
 		return &user.UserResponse{}, userError
 	}
 	var addressDetails models.Address
-	addressError := config.GetDB().First(&addressDetails, "id = ?", request.AddressID).Error
+	var addressError error
+	if request.AddressID != 0 {
+		addressError = config.GetDB().First(&addressDetails, "id = ?", request.AddressID).Error
+	} else {
+		addressError = config.GetDB().First(&addressDetails, "user_id = ?", request.UserID).Error
+	}
 	log.Println("ADDRESS_DETAILS", addressDetails)
 
 	if addressError != nil {
